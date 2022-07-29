@@ -37,7 +37,7 @@ def get_boundaries(fpath):
 
 
 
- def moving_average(a, n=200):
+def moving_average(a, n=200):
   '''smooths input array with a window of n'''
   ret = np.cumsum(a, dtype=float)
   ret[n:] = ret[n:] - ret[:-n]
