@@ -177,8 +177,11 @@ def MFCC_preprocess(audio_array, boundaries, hop_length=32):
   # append data to corresponding lists
   for feat,lab in zip(X,y):
 
+  	# buffer defined as total sampled needed (number of frames * len of each frame)
+  	buffer = 312*hop_length
+
     # only run boundaries which can be fully evaluated
-    if (feat > 20000)&(feat<l-20000):
+    if (feat > buffer)&(feat<l-buffer):
 
       # generate pre/post/boundary segments
       R_1, R_2, R_3 = return_feats(MFCC, feat, hop_length)
