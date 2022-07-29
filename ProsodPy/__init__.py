@@ -148,7 +148,7 @@ def return_feats(MFCC, X):
 
 
 
-def MFCC_preprocess(audio_array, boundaries):
+def MFCC_preprocess(audio_array, boundaries, hop_length=32):
   '''returns preprocessed MFCC data for an audio file'''
 
   # initialize empty lists to append data to
@@ -158,7 +158,7 @@ def MFCC_preprocess(audio_array, boundaries):
   l = len(audio_array)
 
   # generate MFCC (n_fft proportional to 2048 @ 22050hz)
-  MFCC = librosa.feature.mfcc(audio_array, n_mfcc = 12, n_fft=743, hop_length=32)
+  MFCC = librosa.feature.mfcc(audio_array, n_mfcc = 12, n_fft=743, hop_length=hop_length)
 
   # normalize MFCC
   MFCC = ((MFCC.T-MFCC.mean(axis=1))/MFCC.std(axis=1)).T
