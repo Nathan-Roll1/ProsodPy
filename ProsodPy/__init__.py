@@ -144,10 +144,10 @@ def return_feats(MFCC, X, hop_length):
   '''defines window ranges for relevant MFCC data'''
   
   # preboundary data from prior 20,000 samples (625 MFCC frames)
-  R_1 = MFCC[:,int(np.floor((X-20000)/hop_length)):int(np.floor((X)/hop_length))]
+  R_1 = MFCC[:,int(np.floor(X/hop_length))-312:int(np.floor(X/hop_length))]
 
   # postboundary data from subsequent 20,000 samples (625 MFCC frames)
-  R_2 = MFCC[:,int(np.floor((X)/hop_length)):int(np.floor((X+20000)/hop_length))]
+  R_2 = MFCC[:,int(np.floor(X/hop_length)):int(np.floor(X/hop_length))+312]
 
   # boundary data from 156 frame radius (312 total)
   R_3 = MFCC[:,int(np.floor(X/hop_length))-156:int(np.floor(X/hop_length))+156]
