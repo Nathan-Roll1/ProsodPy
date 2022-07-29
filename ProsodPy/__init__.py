@@ -132,17 +132,17 @@ def gen_data(audio_array, boundaries, plot=False):
 
 
 
-def return_feats(MFCC, X):
+def return_feats(MFCC, X, hop_length):
   '''defines window ranges for relevant MFCC data'''
   
   # preboundary data from prior 20,000 samples (625 MFCC frames)
-  R_1 = MFCC[:,int(np.floor((X-20000)/32)):int(np.floor((X)/32))]
+  R_1 = MFCC[:,int(np.floor((X-20000)/hop_length)):int(np.floor((X)/hop_length))]
 
   # postboundary data from subsequent 20,000 samples (625 MFCC frames)
-  R_2 = MFCC[:,int(np.floor((X)/32)):int(np.floor((X+20000)/32))]
+  R_2 = MFCC[:,int(np.floor((X)/hop_length)):int(np.floor((X+20000)/hop_length))]
 
   # boundary data from 156 frame radius (312 total)
-  R_3 = MFCC[:,int(np.floor(X/32))-156:int(np.floor(X/32))+156]
+  R_3 = MFCC[:,int(np.floor(X/hop_length))-156:int(np.floor(X/hop_length))+156]
 
   return R_1, R_2, R_3
 
@@ -173,7 +173,7 @@ def MFCC_preprocess(audio_array, boundaries, hop_length=32):
     if (feat > 20000)&(feat<l-20000):
 
       # generate pre/post/boundary segments
-      R_1, R_2, R_3 = return_feats(MFCC, feat)
+      R_1, R_2, R_3 = return_feats(MFCC, feat, hop_length)
 
       # append to lists
       pre_mfcc.append(R_1)
