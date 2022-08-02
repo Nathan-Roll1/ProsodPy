@@ -72,8 +72,10 @@ def bound_opts(audio_array,transcribed_bounds, start):
   # realign heuristic bounds to initial sample rate
   boundary_options = boundary_options*200+100 + start
   
+  # to apply heuristic only
   if not transcribed_bounds:
     return boundary_options
+
   # snap transcribed bounds to closest heuristic bound
   true_labels = []
   for t_b in transcribed_bounds:
