@@ -75,7 +75,7 @@ def bound_opts(audio_array,transcribed_bounds, start):
   boundary_options = boundary_options*200+100 + start
   
   # to apply heuristic only
-  if not transcribed_bounds:
+  if transcribed_bounds == False:
     return boundary_options
 
   # snap transcribed bounds to closest heuristic bound
