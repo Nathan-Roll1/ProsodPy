@@ -39,6 +39,8 @@ def get_boundaries(fpath):
 
 def moving_average(a, n=200):
   '''smooths input array with a window of n'''
+
+  # get cumulative sum for each point
   ret = np.cumsum(a, dtype=float)
   ret[n:] = ret[n:] - ret[:-n]
   return ret[n - 1:] / n
