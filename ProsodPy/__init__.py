@@ -195,4 +195,4 @@ def MFCC_preprocess(audio_array, boundaries, hop_length=32, n_mfcc = 12, n_fft=7
   boundary_mfcc = np.array(boundary_mfcc)
   labels = np.array(labels)
 
-  return pre_mfcc, post_mfcc, boundary_mfcc, labels
+  return boundary_mfcc, labels
