@@ -115,32 +115,32 @@ def gen_data(audio_array, boundaries, plot=False):
     bound_set = boundaries[np.where(np.logical_and(boundaries>=start, boundaries<=stop))[0]]
 
     # concatenate all segment data together
-    try: #catches case where segment contains no potential boundaries
-      true_labels, false_labels = bound_opts(chunk, bound_set, start)
+#     try: #catches case where segment contains no potential boundaries
+    true_labels, false_labels = bound_opts(chunk, bound_set, start)
 
-      X += list(true_labels) #preserve order of features
-      X += list(false_labels)
-      y += [1]*len(true_labels) #... and labels
-      y += [0]*len(false_labels)
+    X += list(true_labels) #preserve order of features
+    X += list(false_labels)
+    y += [1]*len(true_labels) #... and labels
+    y += [0]*len(false_labels)
 
-      # plots each segment if specified
-      if plot: 
+    # plots each segment if specified
+    if plot: 
 
-        # plot audio
-        plt.plot(range(start,stop),chunk)
+      # plot audio
+      plt.plot(range(start,stop),chunk)
 
-        # plot false potential boundaries
-        plt.vlines(false_labels,np.min(chunk),np.max(chunk),linewidth=2,color='r')
+      # plot false potential boundaries
+      plt.vlines(false_labels,np.min(chunk),np.max(chunk),linewidth=2,color='r')
 
-        # plot true potential boundaries
-        plt.vlines(true_labels,np.min(chunk),np.max(chunk),linewidth=2,color='g')
+      # plot true potential boundaries
+      plt.vlines(true_labels,np.min(chunk),np.max(chunk),linewidth=2,color='g')
 
-        # plot unaltered timestamps
-        plt.vlines(bound_set,np.min(chunk),np.max(chunk),linewidth=2,linestyle='--')
-        plt.show()
+      # plot unaltered timestamps
+      plt.vlines(bound_set,np.min(chunk),np.max(chunk),linewidth=2,linestyle='--')
+      plt.show()
 
-    except Exception as E:
-      print(E) # empty segment cases are ignored
+#     except Exception as E:
+#       print(E) # empty segment cases are ignored
 
   return np.array(X), np.array(y)
 
