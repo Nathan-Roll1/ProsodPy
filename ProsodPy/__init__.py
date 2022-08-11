@@ -147,27 +147,21 @@ def gen_data(audio_array, boundaries, plot=False):
 
 
 
-def return_feats(MFCC, X, hop_length):
+def return_feats(MFCC, X, hop_length, n_frames):
   '''defines window ranges for relevant MFCC data'''
   
-  # preboundary data from prior 20,000 samples (625 MFCC frames)
-  R_1 = MFCC[:,int(np.floor(X/hop_length))-312:int(np.floor(X/hop_length))]
-
-  # postboundary data from subsequent 20,000 samples (625 MFCC frames)
-  R_2 = MFCC[:,int(np.floor(X/hop_length)):int(np.floor(X/hop_length))+312]
-
   # boundary data from 156 frame radius (312 total)
-  R_3 = MFCC[:,int(np.floor(X/hop_length))-156:int(np.floor(X/hop_length))+156]
+  R_3 = MFCC[:,int(np.floor(X/hop_length))-round(n_frames/2):int(np.floor(X/hop_length))+round(n_frames/2)]
 
-  return R_1, R_2, R_3
+  return R_3
 
 
 
-def MFCC_preprocess(audio_array, boundaries, hop_length=32, n_mfcc = 12, n_fft=743):
+def MFCC_preprocess(audio_array, boundaries, hop_length=32, n_mfcc = 12, n_fft=743, n_frames = 312):
   '''returns preprocessed MFCC data for an audio file'''
 
   # initialize empty lists to append data to
-  pre_mfcc, post_mfcc, boundary_mfcc, labels = [],[],[],[]
+  boundary_mfcc, labels = [],[]
 
   # store length of audio (in samples)
   l = len(audio_array)
@@ -185,23 +179,19 @@ def MFCC_preprocess(audio_array, boundaries, hop_length=32, n_mfcc = 12, n_fft=7
   for feat,lab in zip(X,y):
 
     # buffer defined as total sampled needed (number of frames * len of each frame)
-    buffer = 312*hop_length
+    buffer = n_frames*hop_length
 
     # only run boundaries which can be fully evaluated
     if (feat > buffer)&(feat<l-buffer):
 
       # generate pre/post/boundary segments
-      R_1, R_2, R_3 = return_feats(MFCC, feat, hop_length)
+      R_3 = return_feats(MFCC, feat, hop_length, n_frames)
 
       # append to lists
-      pre_mfcc.append(R_1)
-      post_mfcc.append(R_2)
       boundary_mfcc.append(R_3)
       labels.append(lab)
 
   # convert lists to numpy arrays
-  pre_mfcc = np.array(pre_mfcc)
-  post_mfcc = np.array(post_mfcc)[:,:,::-1] # invert postboundary MFCC for RNN
   boundary_mfcc = np.array(boundary_mfcc)
   labels = np.array(labels)
 
