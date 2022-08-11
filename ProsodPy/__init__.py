@@ -140,7 +140,7 @@ def gen_data(audio_array, boundaries, plot=False):
         plt.show()
 
     except Exception as E:
-      Print(E) # empty segment cases are ignored
+      print(E) # empty segment cases are ignored
 
   return np.array(X), np.array(y)
 
