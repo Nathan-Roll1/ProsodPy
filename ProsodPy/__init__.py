@@ -139,8 +139,8 @@ def gen_data(audio_array, boundaries, plot=False):
         plt.vlines(bound_set,np.min(chunk),np.max(chunk),linewidth=2,linestyle='--')
         plt.show()
 
-    except:
-      pass # empty segment cases are ignored
+    except Exception as E:
+      Print(E) # empty segment cases are ignored
 
   return np.array(X), np.array(y)
 
