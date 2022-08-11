@@ -67,9 +67,9 @@ def bound_opts(audio_array,transcribed_bounds, start):
     for i,b in enumerate(boundary_options):
       if i < len(boundary_options)-2:
 
-#         # arbitrary pause threshold of the standard deviation of abs values divided by 5
-#         if max(abs_arr[b:boundary_options[i+2]]) < np.std(abs_arr)/5: 
-#           boundary_options = np.delete(boundary_options, [i+1], axis=0)
+        # arbitrary pause threshold of the standard deviation of abs values divided by 5
+        if max(abs_arr[b:boundary_options[i+2]]) < np.std(abs_arr)/5: 
+          boundary_options = np.delete(boundary_options, [i+1], axis=0)
 
   # realign heuristic bounds to initial sample rate
   boundary_options = boundary_options*200+100 + start
