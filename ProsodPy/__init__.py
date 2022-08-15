@@ -84,7 +84,8 @@ def bound_opts(audio_array,transcribed_bounds, start):
   for t_b in transcribed_bounds:
     abs_diff = np.abs(boundary_options-t_b)
     m = np.argmin(abs_diff)
-    true_labels.append(m)
+    if m <= 400:
+      true_labels.append(m)
 
   # append true and false labels by index
   false_labels = np.array([boundary_options[i] for i in range(len(boundary_options)) if i not in true_labels])
