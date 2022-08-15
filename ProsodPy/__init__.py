@@ -108,7 +108,7 @@ def gen_data(audio_array, boundaries, plot=False):
   for i in range(segments):
 
     # segments defined by start and stop sample number
-    start, stop = (40000*i,40000*(i+1))
+    start, stop = (20000*i,20000*(i+1))
 
     # subset complete audio file to isolate chunk
     chunk = audio_array[start:stop]
