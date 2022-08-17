@@ -185,7 +185,7 @@ def MFCC_preprocess(audio_array, boundaries, hop_length=32, n_mfcc = 12, n_fft=7
     buffer = n_frames*hop_length
 
     # only run boundaries which can be fully evaluated
-    if (feat > buffer)&(feat<l-buffer):
+    if (feat > buffer)&(feat<(l-buffer)):
       usable_bounds.append(feat)
 
       # generate pre/post/boundary segments
