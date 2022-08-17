@@ -163,7 +163,7 @@ def MFCC_preprocess(audio_array, boundaries, hop_length=32, n_mfcc = 12, n_fft=7
   '''returns preprocessed MFCC data for an audio file'''
 
   # initialize empty lists to append data to
-  boundary_mfcc, labels = [],[]
+  boundary_mfcc, labels, usable_bounds = [],[],[]
 
   # store length of audio (in samples)
   l = len(audio_array)
@@ -186,6 +186,7 @@ def MFCC_preprocess(audio_array, boundaries, hop_length=32, n_mfcc = 12, n_fft=7
 
     # only run boundaries which can be fully evaluated
     if (feat > buffer)&(feat<l-buffer):
+      usable_bounds.append(feat)
 
       # generate pre/post/boundary segments
       R_3 = return_feats(MFCC, feat, hop_length, n_frames)
@@ -198,4 +199,4 @@ def MFCC_preprocess(audio_array, boundaries, hop_length=32, n_mfcc = 12, n_fft=7
   boundary_mfcc = np.array(boundary_mfcc)
   labels = np.array(labels)
 
-  return boundary_mfcc, labels
+  return boundary_mfcc, labels, usable_bounds
