@@ -198,5 +198,6 @@ def MFCC_preprocess(audio_array, boundaries, hop_length=32, n_mfcc = 12, n_fft=7
   # convert lists to numpy arrays
   boundary_mfcc = np.array(boundary_mfcc)
   labels = np.array(labels)
+  usable_bounds = np.array(usable_bounds)
 
   return boundary_mfcc, labels, usable_bounds
