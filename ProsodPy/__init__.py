@@ -99,7 +99,7 @@ def gen_data(audio_array, boundaries, plot=False):
   '''generates boundary position and label for audio file and accompanying boundaries'''
 
   # define number of 5-second segments (and one final partial segment with remainder)
-  segments = int(np.ceil(len(audio_array)/40000)) 
+  segments = int(np.ceil(len(audio_array)/20000)) 
 
   # initialize X and y
   X, y = [],[]
