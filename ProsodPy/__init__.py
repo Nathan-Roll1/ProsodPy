@@ -202,3 +202,32 @@ def MFCC_preprocess(audio_array, boundaries, hop_length=32, n_mfcc = 12, n_fft=7
   usable_bounds = np.array(usable_bounds)
 
   return boundary_mfcc, labels, usable_bounds
+
+def boundary_heuristic(audio_array):
+  '''return all heuristic boundaries for an input audio array'''
+
+  # define number of 20k sample "chunks"
+  segments = int(np.ceil(len(audio_array)/20000))
+
+  # initialize empty boundary list
+  bounds = []
+
+  # for each segment
+  for i in range(segments):
+
+    # identify start and stop samples
+    start, stop = (20000*i,20000*(i+1))
+
+    # define chunk
+    chunk = audio_array[start:stop]
+
+    # run algorith
+    potential_bounds = bound_opts(chunk, False,start)
+
+    # append identified boundaries to list
+    bounds.append(potential_bounds) 
+
+  # merge boundaries together
+  bounds = np.concatenate(bounds)
+
+  return bounds
