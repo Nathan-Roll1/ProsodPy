@@ -248,8 +248,6 @@ def plot_heuristic_stages(audio_array, color='black'):
   #step 3: Subset every nth value
   sparse_ma_arr = ma_arr[::200]
 
-  
-
   # step 4: Index local minima
   t_f = (sparse_ma_arr<np.roll(sparse_ma_arr,1))&(sparse_ma_arr<np.roll(sparse_ma_arr,-1))
   prov_boundary_options = np.where(t_f==1)[0] 
@@ -298,3 +296,25 @@ def plot_heuristic_stages(audio_array, color='black'):
   axs[5].axis('off')
   axs[5].text(-.02, .4, '5', transform=axs[5].transAxes,
     fontsize=10, verticalalignment='center', fontfamily='monospace')
+
+def plot_mfcc(audio_array):
+  '''create MFCC visualization'''
+
+  # generate MFCC (n_fft proportional to 2048 @ 22050hz)
+  MFCC = librosa.feature.mfcc(audio_array, n_mfcc = 15, n_fft=743, hop_length=16)
+
+  # normalize MFCC
+  MFCC = ((MFCC.T-MFCC.mean(axis=1))/MFCC.std(axis=1)).T
+
+  # set image size/quality
+  plt.rcParams["figure.figsize"] = (4,.5)
+  plt.rcParams["figure.dpi"] = 250
+
+  # plot MFCC
+  plt.imshow(MFCC, aspect='auto',cmap='Greys')
+
+  # add boundary line
+  plt.axvline(250,0,1,c='black')
+
+  # turn of grid
+  plt.axis('off')
