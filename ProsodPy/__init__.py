@@ -319,7 +319,7 @@ def plot_mfcc(audio_array):
   # turn of grid
   plt.axis('off')
 
-def waveform_plot(i=1, threshold = 0.5):
+def waveform_plot(audio_array, boundaries, df, i=1, threshold = 0.5):
   '''plot inferences'''
 
   # set params
