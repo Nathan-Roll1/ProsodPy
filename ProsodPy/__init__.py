@@ -318,3 +318,35 @@ def plot_mfcc(audio_array):
 
   # turn of grid
   plt.axis('off')
+
+def waveform_plot(i=1, threshold = 0.5):
+  '''plot inferences'''
+
+  # set params
+  plt.rcParams["figure.dpi"] = 250
+  plt.rcParams["figure.figsize"] = (4,2.5/6)
+
+  #define starting and stopping points for 2-second chunk to plot, based on i
+  start, stop = (16000*i,16000*(i+1))
+
+  #create chunk
+  chunk = audio_array[start:stop]
+  
+  # create mask to isolate predictions to chunk
+  mask = np.where((boundaries<stop)&(boundaries>start))[0]
+
+  # identify true and false indices
+  mask_t = np.where(df['pred'].values[mask]>threshold)[0]
+  mask_f = np.where(df['pred'].values[mask]<=threshold)[0]
+
+  # plot waveform
+  plt.plot(chunk, c='black', alpha=1)
+
+  # plot predicted bounds
+  plt.vlines(boundaries[mask][mask_t]-start, min(chunk)*(1.35), max(chunk)*(1.35), linestyles='-', linewidth=1,zorder=3,color='green', label='pred')
+  
+  # plot predicted non-bounds
+  plt.vlines(boundaries[mask][mask_f]-start, min(chunk)*(1.35), max(chunk)*(1.35), linestyles=':', linewidth=1,zorder=3,color='red', label='pred')
+  
+  # turn off labels
+  plt.axis('off')
