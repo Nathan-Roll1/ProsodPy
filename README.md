@@ -1,4 +1,6 @@
 # ProsodPy - Supervised inference of IU Boundaries
 Work in progress...
-<img src="[drawing.jpg](https://raw.githubusercontent.com/Nathan-Roll1/ProsodPy/main/Paper/prosodpy_logo.png)" alt="drawing" width="200"/>
+<div id="header" align="center">
+  <img src="[https://media.giphy.com/media/M9gbBd9nbDrOTu1Mqx/giphy.gif](https://raw.githubusercontent.com/Nathan-Roll1/ProsodPy/main/Paper/prosodpy_logo.png)" width="100"/>
+</div>
 ## Getting Started
