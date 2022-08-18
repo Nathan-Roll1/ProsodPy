@@ -119,6 +119,10 @@ plot predictions on subset (change i to plot another 2-second segment)
 ```python
 PP.waveform_plot(audio_array, boundaries, df, i=5, threshold = 0.5)
 ```
+<div align="left">
+  <img src="https://raw.githubusercontent.com/Nathan-Roll1/ProsodPy/main/Paper/sample_prediction.png" width="550"/>
+</div>
+
 Export predictions
 ``` python
 # get prediction column from dataframe
