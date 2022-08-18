@@ -4,7 +4,8 @@
 
 ## ProsodPy - Audio Preprocessing, Modelling, and Inference (in Python)
 ### Companion to: 
-Nathan Roll, Calbert Graham (2022) A Deep Learning Approach to Automatic Prosodic Segmentation in Untranscribed Discourse, unpublished
+A Deep Learning Approach to Automatic Prosodic Segmentation in Untranscribed Discourse, 
+Nathan Roll and Dr. Calbert Graham (2022), unpublished
 
 ### Getting Started
 Start by downloading the github module:
