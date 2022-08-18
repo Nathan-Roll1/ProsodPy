@@ -3,7 +3,8 @@
 </div>
 
 ## ProsodPy - Audio Preprocessing, Modelling, and Inference (in Python)
-
+### Companion to: Nathan Roll, Calbert Graham 2022 A Deep Learning Approach to Automatic Prosodic
+Segmentation in Untranscribed Discourse, unpublished
 ### Getting Started
 Start by downloading the github module:
 ```python
@@ -15,6 +16,13 @@ Import ProsodPy
 import ProsodPy.ProsodPy as PP
 ```
 
+### Predicting Intonation Unit Boundaries
+<div align="left">
+  <img src="https://raw.githubusercontent.com/Nathan-Roll1/ProsodPy/main/Paper/sample_prediction.png" width="550"/>
+</div>
+
+[full tutorial](https://github.com/Nathan-Roll1/ProsodPy/blob/main/Tutorials/inference.ipynb)
+
 Initialize sets (don't touch!)
 ```python
 set_indices = {'pre':'[:,:512]',
@@ -24,14 +32,8 @@ set_indices = {'pre':'[:,:512]',
                'post':'[:,-512:][:,::-1]',
                'h_post':'[:,-256:][:,::-1]'}
 ```
-### Predicting Intonation Unit Boundaries
-<div align="left">
-  <img src="https://raw.githubusercontent.com/Nathan-Roll1/ProsodPy/main/Paper/sample_prediction.png" width="550"/>
-</div>
-
-[full tutorial](https://github.com/Nathan-Roll1/ProsodPy/blob/main/Tutorials/inference.ipynb)
-
 Load the necessary resources
+
 ```python
 !pip install tensorflow==2.7.0
 import tensorflow as tf
