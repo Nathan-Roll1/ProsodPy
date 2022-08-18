@@ -231,3 +231,70 @@ def boundary_heuristic(audio_array):
   bounds = np.concatenate(bounds)
 
   return bounds
+
+def plot_heuristic_stages(audio_array, color='black'):
+  '''generates heuristic visualization on audio array'''
+
+  # set image size and quality
+  plt.rcParams["figure.figsize"] = (4,2.5)
+  plt.rcParams["figure.dpi"] = 250
+
+  # step 1: Take the absolute value of given waveform
+  abs_arr = np.abs(audio_array)
+
+  # step 2: Compute the moving average over n samples (n=0.025s=200)
+  ma_arr = moving_average(abs_arr,n=200)
+
+  #step 3: Subset every nth value
+  sparse_ma_arr = ma_arr[::200]
+
+  
+
+  # step 4: Index local minima
+  t_f = (sparse_ma_arr<np.roll(sparse_ma_arr,1))&(sparse_ma_arr<np.roll(sparse_ma_arr,-1))
+  prov_boundary_options = np.where(t_f==1)[0] 
+
+  # step 5: Potential boundaries exist where minima separate speech above given threshold
+  boundary_options = prov_boundary_options
+  for j in range(len(boundary_options)): 
+    for i,b in enumerate(boundary_options):
+      if i < len(boundary_options)-2:
+
+        # arbitrary pause threshold of the standard deviation of abs values divided by 5
+        if max(ma_arr[b:boundary_options[i+2]]) < 0.004: 
+          boundary_options = np.delete(boundary_options, [i+1], axis=0)
+
+  # create and join all six plots
+  fig, axs = plt.subplots(6, 1)
+
+  axs[0].plot(audio_array,color=color)
+  axs[0].axis('off')
+  axs[0].text(-.09, .3, '[in]', transform=axs[0].transAxes,
+    fontsize=10, verticalalignment='bottom', fontfamily='monospace')
+
+  axs[1].plot(abs_arr,color=color)
+  axs[1].axis('off')
+  axs[1].text(-.02, .3, '1', transform=axs[1].transAxes,
+    fontsize=10, verticalalignment='center', fontfamily='monospace')
+
+  axs[2].plot(ma_arr,color=color)
+  axs[2].axis('off')
+  axs[2].text(-.02, .3, '2', transform=axs[2].transAxes,
+    fontsize=10, verticalalignment='center', fontfamily='monospace')
+
+  axs[3].plot(sparse_ma_arr,color=color)
+  axs[3].axis('off')
+  axs[3].text(-.02, .35, '3', transform=axs[3].transAxes,
+    fontsize=10, verticalalignment='center', fontfamily='monospace')
+
+  axs[4].plot(sparse_ma_arr,color=color)
+  axs[4].vlines(prov_boundary_options,np.min(sparse_ma_arr),np.max(sparse_ma_arr), zorder=3,linestyle=':')
+  axs[4].axis('off')
+  axs[4].text(-.02, .4, '4', transform=axs[4].transAxes,
+    fontsize=10, verticalalignment='center', fontfamily='monospace')
+
+  axs[5].plot(audio_array[200:],color=color)
+  axs[5].vlines(boundary_options*200,np.min(audio_array),np.max(audio_array), zorder=3,linestyle='-')
+  axs[5].axis('off')
+  axs[5].text(-.02, .4, '5', transform=axs[5].transAxes,
+    fontsize=10, verticalalignment='center', fontfamily='monospace')
