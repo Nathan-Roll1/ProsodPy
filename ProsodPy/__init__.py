@@ -297,7 +297,7 @@ def plot_heuristic_stages(audio_array, color='black'):
   axs[5].text(-.02, .4, '5', transform=axs[5].transAxes,
     fontsize=10, verticalalignment='center', fontfamily='monospace')
 
-def plot_mfcc(audio_array):
+def plot_mfcc(audio_array, cmap='Greys'):
   '''create MFCC visualization'''
 
   # generate MFCC (n_fft proportional to 2048 @ 22050hz)
@@ -311,7 +311,7 @@ def plot_mfcc(audio_array):
   plt.rcParams["figure.dpi"] = 250
 
   # plot MFCC
-  plt.imshow(MFCC, aspect='auto',cmap='Greys')
+  plt.imshow(MFCC, aspect='auto',cmap=cmap)
 
   # add boundary line
   plt.axvline(250,0,1,c='black')
